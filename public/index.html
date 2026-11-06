@@ -227,39 +227,18 @@
     fetch('/api/atractivos')
       .then(res => res.json())
       .then(lugares => {
-        // ✅ EXCLUIMOS CORONA Y ESTATUA COMO PEDISTE
         const excluir = ['Corona', 'Estatua', 'Parque Perené', 'PARK-PERENÉ'];
-        let filtrados = lugares.filter(lugar => !excluir.includes(lugar.nombre));
-
-        // ✅ AGREGAMOS LOS 2 QUE FALTABAN CON LOS NOMBRES REALES
-        const atractivosExtra = [
-          {
-            id_lugar: 7,
-            nombre: "Centro Recreacional",
-            descripcion: "Piscinas y recreación para toda la familia...",
-            imagen_principal: "img/piscina.jpg"
-          },
-          {
-            id_lugar: 8,
-            nombre: "Velo de la Novia",
-            descripcion: "Hermosa caída de agua con forma de velo...",
-            imagen_principal: "img/velo_de_la_novia.jpg"
-          }
-        ];
-
-        // ✅ JUNTAMOS TODO: los que ya estaban + los nuevos
-        const todos = [...filtrados, ...atractivosExtra];
-
+        const filtrados = lugares.filter(lugar => !excluir.includes(lugar.nombre));
         const contenedor = document.getElementById('lista-lugares');
         contenedor.innerHTML = '';
-
-        todos.forEach((lugar, indice) => {
+        
+        filtrados.forEach(lugar => {
           const tarjeta = document.createElement('div');
           tarjeta.className = 'tarjeta';
           const rutaImg = lugar.imagen_principal 
             ? `/${lugar.imagen_principal}` 
             : 'img/catarata.jpg';
-
+          
           tarjeta.innerHTML = `
             <img src="${rutaImg}" alt="${lugar.nombre}" loading="lazy">
             <div class="tarjeta-contenido">
@@ -267,7 +246,7 @@
               <p>${(lugar.descripcion || '').substring(0, 70)}...</p>
               <div class="botones">
                 <a href="/lugar/${lugar.id_lugar}" class="btn-ver">Ver detalles</a>
-                <a href="/ra.html?target=${indice}" target="_blank" class="btn-qr">QR</a>
+                <a href="/api/qr/${lugar.id_lugar}" target="_blank" class="btn-qr">QR</a>
               </div>
             </div>
           `;
