@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Realidad Aumentada - Perené</title>
   <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
     body { overflow: hidden; }
@@ -86,34 +87,34 @@
 </head>
 <body>
 
-  <!-- ESCENA SIMPLE — SIN HIRO, SIN MARCADORES -->
   <a-scene 
+    arjs="sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3; debugUIEnabled: false;"
     vr-mode-ui="enabled: false"
     renderer="logarithmicDepthBuffer: true; antialias: true;">
     
-    <a-entity camera look-controls-enabled="true"></a-entity>
+    <a-entity camera></a-entity>
     
-    <!-- El animal aparece fijo frente a ti, a 3 metros de distancia -->
+    <!-- El animal SIEMPRE visible, sin necesidad de marcador -->
     <a-entity 
       id="animal"
       gltf-model="ar/leona.glb"
       scale="0.8 0.8 0.8"
       position="0 -0.5 -3"
-      rotation="0 0 0">
+      rotation="0 0 0"
+      visible="true">
     </a-entity>
     
-    <a-light type="ambient" intensity="1.2"></a-light>
-    <a-light type="directional" position="2 4 2" intensity="1"></a-light>
+    <a-light type="ambient" intensity="1.5"></a-light>
+    <a-light type="directional" position="2 4 2" intensity="1.2"></a-light>
   </a-scene>
 
-  <!-- INTERFAZ - SIN NINGUNA MENCIÓN A HIRO -->
   <a href="index.html" class="boton-volver">← Volver</a>
   
   <div class="instrucciones">
-    📱 Elige un animal y aparecerá frente a ti
+    📱 Permite la cámara → el animal aparecerá frente a ti
   </div>
   
-  <div class="estado" id="estado">✅ Cámara lista</div>
+  <div class="estado" id="estado">⏳ Iniciando cámara...</div>
   
   <div class="selector-modelo">
     <h3>Elige un animal 🐾</h3>
@@ -128,6 +129,14 @@
     const animal = document.getElementById('animal');
     const estado = document.getElementById('estado');
     
+    // Cuando la escena carga
+    document.querySelector('a-scene').addEventListener('loaded', () => {
+      estado.textContent = '✅ ¡Cámara lista!';
+      setTimeout(() => {
+        estado.textContent = '📱 Animal frente a ti';
+      }, 2000);
+    });
+    
     function cambiar(ruta) {
       const nombre = ruta.split('/').pop().replace('.glb', '');
       estado.textContent = '⏳ Cargando ' + nombre + '...';
@@ -137,7 +146,7 @@
       setTimeout(() => {
         animal.setAttribute('gltf-model', ruta);
         estado.textContent = '✅ ' + nombre + ' listo';
-      }, 200);
+      }, 400);
     }
   </script>
 
