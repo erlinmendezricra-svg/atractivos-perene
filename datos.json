@@ -19,18 +19,6 @@
       "imagen": "img/caverna_la_olada.jpg"
     },
     {
-      "id": 4,
-      "nombre": "Corona",
-      "descripcion": "Paisaje espectacular de la zona de Perené.",
-      "imagen": "img/corona.jpg"
-    },
-    {
-      "id": 5,
-      "nombre": "Estatuas",
-      "descripcion": "Monumentos representativos de la cultura local.",
-      "imagen": "img/estatua.jpg"
-    },
-    {
       "id": 6,
       "nombre": "Fundo San Isidro",
       "descripcion": "Belleza natural y paisajes tranquilos.",
