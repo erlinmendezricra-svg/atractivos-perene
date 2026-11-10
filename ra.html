@@ -94,14 +94,15 @@
     
     <a-entity camera></a-entity>
     
-    <!-- ✅ NOMBRES CORRECTOS en minúsculas -->
-    <a-entity 
+    <!-- ✅ TAMAÑO IGUAL PARA TODOS + ANIMACIONES ACTIVADAS -->
+    <a-entity
       id="animal"
-      gltf-model="ar/leona.glb"
-      scale="1.5 1.5 1.5"
+      gltf-model="ar/conejo.glb"
+      scale="0.8 0.8 0.8"
       position="0 0 -2"
       rotation="0 0 0"
-      visible="true">
+      visible="true"
+      animation-mixer="clip: *; loop: repeat; duration: 1.0">
     </a-entity>
     
     <a-light type="ambient" intensity="2.0"></a-light>
@@ -111,10 +112,10 @@
   <a href="index.html" class="boton-volver">← Volver</a>
   
   <div class="instrucciones">
-    📱 Elige un animal → aparecerá frente a ti
+    📱 Elige un animal → ¡se moverá por ti!
   </div>
   
-  <div class="estado" id="estado">⏳ Cargando...</div>
+  <div class="estado" id="estado">✅ Cámara lista</div>
   
   <div class="selector-modelo">
     <h3>Elige un animal 🐾</h3>
@@ -129,16 +130,14 @@
     const animal = document.getElementById('animal');
     const estado = document.getElementById('estado');
     
-    document.querySelector('a-scene').addEventListener('loaded', () => {
-      estado.textContent = '✅ Cámara lista';
-    });
-    
     animal.addEventListener('model-loaded', () => {
-      estado.textContent = '✅ ¡Animal cargado!';
+      estado.textContent = '✅ ¡Animal listo y animado!';
+      estado.style.background = 'green';
     });
     
     animal.addEventListener('model-error', () => {
-      estado.textContent = '❌ Error al cargar el modelo';
+      estado.textContent = '❌ Error al cargar';
+      estado.style.background = 'red';
     });
     
     function cambiar(ruta) {
@@ -149,7 +148,12 @@
       
       setTimeout(() => {
         animal.setAttribute('gltf-model', ruta);
-      }, 100);
+        // ✅ Reinicia la animación al cambiar de modelo
+        const mixer = animal.components['animation-mixer'];
+        if (mixer && mixer.mixer) {
+          mixer.mixer.stopAllAction();
+        }
+      }, 150);
     }
   </script>
 
