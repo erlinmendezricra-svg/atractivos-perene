@@ -94,12 +94,12 @@
     
     <a-entity camera></a-entity>
     
-    <!-- ✅ TAMAÑO: 0.8 0.8 0.8 para todos los animales -->
+    <!-- ✅ TAMAÑO AJUSTADO: 0.5 0.5 0.5 → más pequeño y cómodo -->
     <a-entity
       id="animal"
       gltf-model="ar/conejo.glb"
-      scale="0.8 0.8 0.8"
-      position="0 0 -2"
+      scale="0.5 0.5 0.5"
+      position="0 0 -1.5"
       visible="true"
       animation-mixer="clip: *; loop: repeat;">
     </a-entity>
@@ -123,6 +123,7 @@
     <button onclick="cambiar('ar/lobo.glb')">🐺 Lobo</button>
     <button onclick="cambiar('ar/saurio.glb')">🦕 Saurio</button>
     <button onclick="cambiar('ar/conejo.glb')">🐰 Conejo</button>
+    <button onclick="cambiar('ar/guinea.glb')">🐹 Guinea</button>
   </div>
 
   <script>
@@ -147,7 +148,7 @@
       
       setTimeout(() => {
         animal.setAttribute('gltf-model', ruta);
-        animal.setAttribute('scale', '0.8 0.8 0.8'); // ✅ Mantiene tamaño siempre
+        animal.setAttribute('scale', '0.5 0.5 0.5'); // ✅ Siempre tamaño 0.5
       }, 150);
     }
   </script>
