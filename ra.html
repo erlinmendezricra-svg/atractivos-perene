@@ -86,14 +86,14 @@
 </head>
 <body>
 
+  <!-- ESCENA SIMPLE — SIN HIRO, SIN MARCADORES -->
   <a-scene 
-    arjs="sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3;"
     vr-mode-ui="enabled: false"
     renderer="logarithmicDepthBuffer: true; antialias: true;">
     
-    <a-entity camera></a-entity>
+    <a-entity camera look-controls-enabled="true"></a-entity>
     
-    <!-- El animal aparece fijo frente a ti -->
+    <!-- El animal aparece fijo frente a ti, a 3 metros de distancia -->
     <a-entity 
       id="animal"
       gltf-model="ar/leona.glb"
@@ -106,10 +106,11 @@
     <a-light type="directional" position="2 4 2" intensity="1"></a-light>
   </a-scene>
 
+  <!-- INTERFAZ - SIN NINGUNA MENCIÓN A HIRO -->
   <a href="index.html" class="boton-volver">← Volver</a>
   
   <div class="instrucciones">
-    📱 Elige un animal → aparece frente a ti en la cámara
+    📱 Elige un animal y aparecerá frente a ti
   </div>
   
   <div class="estado" id="estado">✅ Cámara lista</div>
