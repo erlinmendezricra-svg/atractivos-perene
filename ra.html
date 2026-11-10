@@ -1,39 +1,168 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RA Perené</title>
-
-  <!-- ✅ LIBRERÍAS DESDE INTERNET (NO necesitas tenerlas en tu carpeta) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Realidad Aumentada - Perené</title>
   <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
-
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
   <style>
-    * { margin:0; padding:0; }
-    html, body { width:100%; height:100%; overflow:hidden; background:#000; }
-    .a-enter-vr { display:none !important; }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+    body { overflow: hidden; }
+    
+    .boton-volver {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: white;
+      color: #006633;
+      padding: 8px 15px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      z-index: 100;
+      font-size: 0.9rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+    
+    .instrucciones {
+      position: absolute;
+      top: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 102, 51, 0.9);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      z-index: 100;
+      text-align: center;
+      font-size: 0.85rem;
+      max-width: 95%;
+    }
+    
+    .selector-modelo {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255,255,255,0.95);
+      padding: 12px 15px;
+      border-radius: 12px;
+      z-index: 100;
+      text-align: center;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+    
+    .selector-modelo h3 {
+      color: #006633;
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+    }
+    
+    .selector-modelo button {
+      background: #006633;
+      color: white;
+      border: none;
+      padding: 8px 10px;
+      margin: 4px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+    
+    .estado {
+      position: absolute;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.7);
+      color: white;
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      z-index: 100;
+    }
   </style>
 </head>
 <body>
-  <a-scene
-    mindar-image="imageTargetSrc: ar/targets.mind; maxTrack:1; uiLoading:yes; uiScanning:yes; cameraDefault:true;"
-    vr-mode-ui="enabled:false">
+
+  <a-scene 
+    arjs="sourceType: webcam; detectionMode: mono; markerPattern: https://raw.githubusercontent.com/AR-js-org/AR.js/master/data/patterns/hiro.patt;"
+    vr-mode-ui="enabled: false"
+    renderer="logarithmicDepthBuffer: true; antialias: true;">
     
-    <a-assets>
-      <a-asset-item id="cocodrilo" src="ar/Cocodrilo.glb"></a-asset-item>
-      <a-asset-item id="conejo" src="ar/Conejo.glb"></a-asset-item>
-      <a-asset-item id="leona" src="ar/Leona.glb"></a-asset-item>
-      <a-asset-item id="lobo" src="ar/Lobo.glb"></a-asset-item>
-      <a-asset-item id="saurio" src="ar/Saurio.glb"></a-asset-item>
-    </a-assets>
-
-    <a-camera></a-camera>
-
-    <!-- Modelo que aparece al detectar la imagen -->
-    <a-entity mindar-image-target="targetIndex: 0">
-      <a-entity position="0 0 -1" scale="0.3 0.3 0.3" rotation="-90 0 0" gltf-model="#leona" animation-mixer="loop:repeat"></a-entity>
+    <!-- Cámara -->
+    <a-entity camera look-controls-enabled="false"></a-entity>
+    
+    <!-- El modelo 3D -->
+    <a-entity 
+      id="modelo-ra"
+      gltf-model="ar/leona.glb"
+      scale="0.5 0.5 0.5"
+      position="0 0 0"
+      rotation="0 0 0"
+      visible="false">
     </a-entity>
+    
+    <!-- Luz -->
+    <a-light type="ambient" intensity="1.5"></a-light>
+    <a-light type="directional" position="3 5 3" intensity="1.2"></a-light>
   </a-scene>
+
+  <!-- Interfaz HTML -->
+  <a href="index.html" class="boton-volver">← Volver</a>
+  
+  <div class="instrucciones">
+    📱 Apunta tu cámara al marcador Hiro → abre en otra pantalla: bit.ly/marcador-hiro
+  </div>
+  
+  <div class="estado" id="estado">⏳ Cargando cámara...</div>
+  
+  <div class="selector-modelo">
+    <h3>Elige un animal 🐾</h3>
+    <button onclick="cambiarModelo('ar/leona.glb')">🦁 Leona</button>
+    <button onclick="cambiarModelo('ar/Cocodrilo.glb')">🐊 Cocodrilo</button>
+    <button onclick="cambiarModelo('ar/Lobo.glb')">🐺 Lobo</button>
+    <button onclick="cambiarModelo('ar/saurio.glb')">🦕 Saurio</button>
+    <button onclick="cambiarModelo('ar/Conejo.glb')">🐰 Conejo</button>
+  </div>
+
+  <script>
+    const modelo = document.getElementById('modelo-ra');
+    const estado = document.getElementById('estado');
+    
+    // Cuando encuentra el marcador
+    document.querySelector('a-scene').addEventListener('markerFound', () => {
+      estado.textContent = '✅ ¡Marcador detectado!';
+      estado.style.background = 'rgba(0,102,51,0.8)';
+      modelo.setAttribute('visible', 'true');
+    });
+    
+    // Cuando pierde el marcador
+    document.querySelector('a-scene').addEventListener('markerLost', () => {
+      estado.textContent = '🔍 Apunta al marcador Hiro';
+      estado.style.background = 'rgba(0,0,0,0.7)';
+      modelo.setAttribute('visible', 'false');
+    });
+    
+    function cambiarModelo(ruta) {
+      estado.textContent = '⏳ Cargando modelo...';
+      modelo.setAttribute('gltf-model', '');
+      
+      setTimeout(() => {
+        modelo.setAttribute('gltf-model', ruta);
+        modelo.setAttribute('visible', 'true');
+        estado.textContent = '✅ ¡Listo!';
+      }, 150);
+      
+      console.log('Cambiando a:', ruta);
+    }
+    
+    setTimeout(() => {
+      estado.textContent = '🔍 Cámara lista. Apunta al marcador';
+    }, 3000);
+  </script>
+
 </body>
 </html>
