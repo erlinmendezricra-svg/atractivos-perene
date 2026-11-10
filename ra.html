@@ -94,15 +94,14 @@
     
     <a-entity camera></a-entity>
     
-    <!-- ✅ TAMAÑO IGUAL PARA TODOS + ANIMACIONES ACTIVADAS -->
+    <!-- ✅ TAMAÑO: 0.8 0.8 0.8 para todos los animales -->
     <a-entity
       id="animal"
       gltf-model="ar/conejo.glb"
       scale="0.8 0.8 0.8"
       position="0 0 -2"
-      rotation="0 0 0"
       visible="true"
-      animation-mixer="clip: *; loop: repeat; duration: 1.0">
+      animation-mixer="clip: *; loop: repeat;">
     </a-entity>
     
     <a-light type="ambient" intensity="2.0"></a-light>
@@ -148,11 +147,7 @@
       
       setTimeout(() => {
         animal.setAttribute('gltf-model', ruta);
-        // ✅ Reinicia la animación al cambiar de modelo
-        const mixer = animal.components['animation-mixer'];
-        if (mixer && mixer.mixer) {
-          mixer.mixer.stopAllAction();
-        }
+        animal.setAttribute('scale', '0.8 0.8 0.8'); // ✅ Mantiene tamaño siempre
       }, 150);
     }
   </script>
