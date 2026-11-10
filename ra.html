@@ -36,7 +36,7 @@
       border-radius: 8px;
       z-index: 100;
       text-align: center;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       max-width: 95%;
     }
     
@@ -80,7 +80,7 @@
       color: white;
       padding: 10px 20px;
       border-radius: 20px;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       z-index: 100;
     }
   </style>
@@ -94,34 +94,34 @@
     
     <a-entity camera></a-entity>
     
-    <!-- El animal SIEMPRE visible, sin necesidad de marcador -->
+    <!-- ✅ NOMBRES EXACTOS con mayúsculas como los tienes tú -->
     <a-entity 
       id="animal"
-      gltf-model="ar/leona.glb"
-      scale="0.8 0.8 0.8"
-      position="0 -0.5 -3"
+      gltf-model="ar/Leona.glb"
+      scale="1.5 1.5 1.5"
+      position="0 0 -2"
       rotation="0 0 0"
       visible="true">
     </a-entity>
     
-    <a-light type="ambient" intensity="1.5"></a-light>
-    <a-light type="directional" position="2 4 2" intensity="1.2"></a-light>
+    <a-light type="ambient" intensity="2.0"></a-light>
+    <a-light type="directional" position="3 5 3" intensity="1.5"></a-light>
   </a-scene>
 
   <a href="index.html" class="boton-volver">← Volver</a>
   
   <div class="instrucciones">
-    📱 Permite la cámara → el animal aparecerá frente a ti
+    📱 Elige un animal → aparecerá frente a ti
   </div>
   
-  <div class="estado" id="estado">⏳ Iniciando cámara...</div>
+  <div class="estado" id="estado">⏳ Cargando...</div>
   
   <div class="selector-modelo">
     <h3>Elige un animal 🐾</h3>
-    <button onclick="cambiar('ar/leona.glb')">🦁 Leona</button>
+    <button onclick="cambiar('ar/Leona.glb')">🦁 Leona</button>
     <button onclick="cambiar('ar/Cocodrilo.glb')">🐊 Cocodrilo</button>
     <button onclick="cambiar('ar/Lobo.glb')">🐺 Lobo</button>
-    <button onclick="cambiar('ar/saurio.glb')">🦕 Saurio</button>
+    <button onclick="cambiar('ar/Saurio.glb')">🦕 Saurio</button>
     <button onclick="cambiar('ar/Conejo.glb')">🐰 Conejo</button>
   </div>
 
@@ -129,24 +129,27 @@
     const animal = document.getElementById('animal');
     const estado = document.getElementById('estado');
     
-    // Cuando la escena carga
     document.querySelector('a-scene').addEventListener('loaded', () => {
-      estado.textContent = '✅ ¡Cámara lista!';
-      setTimeout(() => {
-        estado.textContent = '📱 Animal frente a ti';
-      }, 2000);
+      estado.textContent = '✅ Cámara lista';
+    });
+    
+    animal.addEventListener('model-loaded', () => {
+      estado.textContent = '✅ ¡Animal cargado!';
+    });
+    
+    animal.addEventListener('model-error', () => {
+      estado.textContent = '❌ Error al cargar el modelo';
     });
     
     function cambiar(ruta) {
       const nombre = ruta.split('/').pop().replace('.glb', '');
-      estado.textContent = '⏳ Cargando ' + nombre + '...';
+      estado.textContent = '⏳ Cargando: ' + nombre;
       
       animal.setAttribute('gltf-model', '');
       
       setTimeout(() => {
         animal.setAttribute('gltf-model', ruta);
-        estado.textContent = '✅ ' + nombre + ' listo';
-      }, 400);
+      }, 100);
     }
   </script>
 
