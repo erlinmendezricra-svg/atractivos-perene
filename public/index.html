@@ -224,29 +224,29 @@
   </section>
 
   <script>
-    fetch('/api/atractivos')
-      .then(res => res.json())
-      .then(lugares => {
-        const excluir = ['Corona', 'Estatua', 'Parque Perené', 'PARK-PERENÉ'];
-        const filtrados = lugares.filter(lugar => !excluir.includes(lugar.nombre));
+    // Cargar desde datos.json en lugar del servidor API
+    fetch('datos.json')
+      .then(res => {
+        if (!res.ok) throw new Error("No se pudo cargar datos.json");
+        return res.json();
+      })
+      .then(data => {
+        const lugares = data.atractivos;
         const contenedor = document.getElementById('lista-lugares');
         contenedor.innerHTML = '';
         
-        filtrados.forEach(lugar => {
+        lugares.forEach(lugar => {
           const tarjeta = document.createElement('div');
           tarjeta.className = 'tarjeta';
-          const rutaImg = lugar.imagen_principal 
-            ? `/${lugar.imagen_principal}` 
-            : 'img/catarata.jpg';
           
           tarjeta.innerHTML = `
-            <img src="${rutaImg}" alt="${lugar.nombre}" loading="lazy">
+            <img src="${lugar.imagen}" alt="${lugar.nombre}" loading="lazy">
             <div class="tarjeta-contenido">
               <h3>${lugar.nombre}</h3>
-              <p>${(lugar.descripcion || '').substring(0, 70)}...</p>
+              <p>${lugar.descripcion.substring(0, 70)}...</p>
               <div class="botones">
-                <a href="/lugar/${lugar.id_lugar}" class="btn-ver">Ver detalles</a>
-                <a href="/api/qr/${lugar.id_lugar}" target="_blank" class="btn-qr">QR</a>
+                <a href="lugar.html?id=${lugar.id}" class="btn-ver">Ver detalles</a>
+                <a href="qr.html?id=${lugar.id}" class="btn-qr">QR</a>
               </div>
             </div>
           `;

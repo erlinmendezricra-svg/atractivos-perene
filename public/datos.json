@@ -1,0 +1,64 @@
+{
+  "atractivos": [
+    {
+      "id": 1,
+      "nombre": "Boca Tigre",
+      "descripcion": "Hermoso atractivo natural de Perené.",
+      "imagen": "img/boca_tigre.jpg"
+    },
+    {
+      "id": 2,
+      "nombre": "Catarata",
+      "descripcion": "Impresionante caída de agua rodeada de vegetación.",
+      "imagen": "img/catarata.jpg"
+    },
+    {
+      "id": 3,
+      "nombre": "Caverna La Olada",
+      "descripcion": "Exploración y naturaleza en entorno único.",
+      "imagen": "img/caverna_la_olada.jpg"
+    },
+    {
+      "id": 4,
+      "nombre": "Corona",
+      "descripcion": "Paisaje espectacular de la zona de Perené.",
+      "imagen": "img/corona.jpg"
+    },
+    {
+      "id": 5,
+      "nombre": "Estatuas",
+      "descripcion": "Monumentos representativos de la cultura local.",
+      "imagen": "img/estatua.jpg"
+    },
+    {
+      "id": 6,
+      "nombre": "Fundo San Isidro",
+      "descripcion": "Belleza natural y paisajes tranquilos.",
+      "imagen": "img/fundo_san_isidro.jpg"
+    },
+    {
+      "id": 7,
+      "nombre": "Juan Santos Atahualpa",
+      "descripcion": "Historia y cultura en este lugar emblemático.",
+      "imagen": "img/juan_santos_atahualpa.jpg"
+    },
+    {
+      "id": 8,
+      "nombre": "Mirador",
+      "descripcion": "Vistas panorámicas impresionantes de Perené.",
+      "imagen": "img/mirador.jpg"
+    },
+    {
+      "id": 9,
+      "nombre": "Piscina Natural",
+      "descripcion": "Aguas cristalinas para disfrutar en familia.",
+      "imagen": "img/piscina.jpg"
+    },
+    {
+      "id": 10,
+      "nombre": "Velo de la Novia",
+      "descripcion": "Una de las cataratas más hermosas de la región.",
+      "imagen": "img/velo_de_la_novia.jpg"
+    }
+  ]
+}
