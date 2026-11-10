@@ -17,15 +17,20 @@
 </head>
 <body>
   <a-scene
-    mindar-image="imageTargetSrc: ./ar/targets.mind; maxTrack:1; uiLoading:yes; uiScanning:yes; cameraDefault:true;"
+    mindar-image="imageTargetSrc: ar/targets.mind; maxTrack:1; uiLoading:yes; uiScanning:yes; cameraDefault:true;"
     vr-mode-ui="enabled:false">
     
     <a-assets>
-      <a-asset-item id="leona" src="./ar/Leona.glb"></a-asset-item>
+      <a-asset-item id="cocodrilo" src="ar/Cocodrilo.glb"></a-asset-item>
+      <a-asset-item id="conejo" src="ar/Conejo.glb"></a-asset-item>
+      <a-asset-item id="leona" src="ar/Leona.glb"></a-asset-item>
+      <a-asset-item id="lobo" src="ar/Lobo.glb"></a-asset-item>
+      <a-asset-item id="saurio" src="ar/Saurio.glb"></a-asset-item>
     </a-assets>
 
     <a-camera></a-camera>
 
+    <!-- Modelo que aparece al detectar la imagen -->
     <a-entity mindar-image-target="targetIndex: 0">
       <a-entity position="0 0 -1" scale="0.3 0.3 0.3" rotation="-90 0 0" gltf-model="#leona" animation-mixer="loop:repeat"></a-entity>
     </a-entity>
