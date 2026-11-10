@@ -118,56 +118,94 @@
   </main>
 
   <script>
+    // TUS DATOS DIRECTAMENTE AQUÍ — ¡no depende de archivos externos!
+    const atractivos = [
+      {
+        "id": 1,
+        "nombre": "Boca Tigre",
+        "descripcion": "Hermoso atractivo natural de Perené.",
+        "imagen": "img/boca_tigre.jpg"
+      },
+      {
+        "id": 2,
+        "nombre": "Catarata",
+        "descripcion": "Impresionante caída de agua rodeada de vegetación.",
+        "imagen": "img/catarata.jpg"
+      },
+      {
+        "id": 3,
+        "nombre": "Caverna La Olada",
+        "descripcion": "Exploración y naturaleza en entorno único.",
+        "imagen": "img/caverna_la_olada.jpg"
+      },
+      {
+        "id": 6,
+        "nombre": "Fundo San Isidro",
+        "descripcion": "Belleza natural y paisajes tranquilos.",
+        "imagen": "img/fundo_san_isidro.jpg"
+      },
+      {
+        "id": 7,
+        "nombre": "Juan Santos Atahualpa",
+        "descripcion": "Historia y cultura en este lugar emblemático.",
+        "imagen": "img/juan_santos_atahualpa.jpg"
+      },
+      {
+        "id": 8,
+        "nombre": "Mirador",
+        "descripcion": "Vistas panorámicas impresionantes de Perené.",
+        "imagen": "img/mirador.jpg"
+      },
+      {
+        "id": 9,
+        "nombre": "Piscina Natural",
+        "descripcion": "Aguas cristalinas para disfrutar en familia.",
+        "imagen": "img/piscina.jpg"
+      },
+      {
+        "id": 10,
+        "nombre": "Velo de la Novia",
+        "descripcion": "Una de las cataratas más hermosas de la región.",
+        "imagen": "img/velo_de_la_novia.jpg"
+      }
+    ];
+
     // Obtener el ID de la URL
     const params = new URLSearchParams(window.location.search);
     const idBuscado = parseInt(params.get('id')) || 1;
 
-    // Cargar desde datos.json
-    fetch('datos.json')
-      .then(res => {
-        if (!res.ok) throw new Error("No se pudo cargar datos.json");
-        return res.json();
-      })
-      .then(data => {
-        const lugares = data.atractivos || data;
-        const lugar = lugares.find(l => l.id === idBuscado);
+    // Buscar el lugar
+    const lugar = atractivos.find(l => l.id === idBuscado);
+    const contenedor = document.getElementById('contenido');
+
+    if (!lugar) {
+      contenedor.innerHTML = `<p class="error">Lugar no encontrado</p>`;
+    } else {
+      contenedor.innerHTML = `
+        <a href="index.html" class="volver">← Volver a Inicio</a>
+        <img src="${lugar.imagen}" alt="${lugar.nombre}" class="foto-principal">
+        <h1>${lugar.nombre}</h1>
+        <span class="etiqueta">📍 Perené</span>
+        <p class="descripcion">${lugar.descripcion}</p>
         
-        if (!lugar) {
-          document.getElementById('contenido').innerHTML = 
-            `<p class="error">Lugar no encontrado</p>`;
-          return;
-        }
-
-        const contenedor = document.getElementById('contenido');
-        contenedor.innerHTML = `
-          <a href="index.html" class="volver">← Volver a Inicio</a>
-          <img src="${lugar.imagen}" alt="${lugar.nombre}" class="foto-principal">
-          <h1>${lugar.nombre}</h1>
-          <span class="etiqueta">📍 Perené</span>
-          <p class="descripcion">${lugar.descripcion || 'Información no disponible...'}</p>
-          
-          <div class="info-adicional">
-            <div class="info-bloque">
-              <h3>🕐 Horario</h3>
-              <p>Todo el día</p>
-            </div>
-            <div class="info-bloque">
-              <h3>📍 Ubicación</h3>
-              <p>Distrito de Perené, Selva Central</p>
-            </div>
+        <div class="info-adicional">
+          <div class="info-bloque">
+            <h3>🕐 Horario</h3>
+            <p>Todo el día</p>
           </div>
-
-          <div class="ra-seccion">
-            <h3>📱 Realidad Aumentada</h3>
-            <p>Apunta con tu cámara al código QR o a la imagen del atractivo para ver en Realidad Aumentada.</p>
-            <a href="ra.html" class="btn-ra">🔬 Activar Realidad Aumentada</a>
+          <div class="info-bloque">
+            <h3>📍 Ubicación</h3>
+            <p>Distrito de Perené, Selva Central</p>
           </div>
-        `;
-      })
-      .catch(err => {
-        document.getElementById('contenido').innerHTML = 
-          `<p class="error">Error al cargar: ${err.message}</p>`;
-      });
+        </div>
+
+        <div class="ra-seccion">
+          <h3>📱 Realidad Aumentada</h3>
+          <p>Apunta con tu cámara al código QR o a la imagen del atractivo para ver en Realidad Aumentada.</p>
+          <a href="ra.html" class="btn-ra">🔬 Activar Realidad Aumentada</a>
+        </div>
+      `;
+    }
   </script>
 
 </body>
