@@ -110,7 +110,7 @@
 
   <nav class="navegacion">
     <div class="titulo">MUNICIPALIDAD DISTRITAL DE PERENÉ</div>
-    <a href="/">← Volver al Inicio</a>
+    <a href="index.html">← Volver al Inicio</a>
   </nav>
 
   <main class="contenedor" id="contenido">
@@ -118,37 +118,49 @@
   </main>
 
   <script>
-    // Obtener el ID del atractivo de la URL
-    const id = window.location.pathname.split('/').pop();
+    // Obtener el ID de la URL
+    const params = new URLSearchParams(window.location.search);
+    const idBuscado = parseInt(params.get('id')) || 1;
 
-    fetch(`/api/lugar/${id}`)
-      .then(res => res.json())
-      .then(lugar => {
+    // Cargar desde datos.json
+    fetch('datos.json')
+      .then(res => {
+        if (!res.ok) throw new Error("No se pudo cargar datos.json");
+        return res.json();
+      })
+      .then(data => {
+        const lugares = data.atractivos || data;
+        const lugar = lugares.find(l => l.id === idBuscado);
+        
+        if (!lugar) {
+          document.getElementById('contenido').innerHTML = 
+            `<p class="error">Lugar no encontrado</p>`;
+          return;
+        }
+
         const contenedor = document.getElementById('contenido');
-        const rutaImg = lugar.imagen_principal ? `/${lugar.imagen_principal}` : '/img/catarata.jpg';
-
         contenedor.innerHTML = `
-          <a href="/" class="volver">← Volver a Inicio</a>
-          <img src="${rutaImg}" alt="${lugar.nombre}" class="foto-principal">
+          <a href="index.html" class="volver">← Volver a Inicio</a>
+          <img src="${lugar.imagen}" alt="${lugar.nombre}" class="foto-principal">
           <h1>${lugar.nombre}</h1>
-          <span class="etiqueta">📍 ${lugar.ubicacion || 'Perené'}</span>
-          <p class="descripcion">${lugar.informacion_completa || lugar.descripcion || 'Información turística de este lugar...'}</p>
+          <span class="etiqueta">📍 Perené</span>
+          <p class="descripcion">${lugar.descripcion || 'Información no disponible...'}</p>
           
           <div class="info-adicional">
             <div class="info-bloque">
               <h3>🕐 Horario</h3>
-              <p>${lugar.horario || 'Todo el día'}</p>
+              <p>Todo el día</p>
             </div>
             <div class="info-bloque">
               <h3>📍 Ubicación</h3>
-              <p>${lugar.ubicacion || 'Distrito de Perené'}</p>
+              <p>Distrito de Perené, Selva Central</p>
             </div>
           </div>
 
           <div class="ra-seccion">
             <h3>📱 Realidad Aumentada</h3>
             <p>Apunta con tu cámara al código QR o a la imagen del atractivo para ver en Realidad Aumentada.</p>
-            <a href="/ra/${lugar.id_lugar}" class="btn-ra">🔬 Activar Realidad Aumentada</a>
+            <a href="ra.html" class="btn-ra">🔬 Activar Realidad Aumentada</a>
           </div>
         `;
       })
