@@ -182,9 +182,8 @@
     const minTamano = 0.15;
     const maxTamano = 0.8;
     
-    // ✅ VARIABLES PARA EL MOVIMIENTO AUTOMÁTICO
+    // ✅ VARIABLES PARA EL MOVIMIENTO EN EL LUGAR
     let tiempoMov = 0;
-    let movimientoActivo = true;
     
     function achicar() {
       if (tamanoActual > minTamano) {
@@ -213,7 +212,7 @@
     function cambiar(ruta) {
       animal.setAttribute('gltf-model', '');
       tamanoActual = 0.3;
-      tiempoMov = 0; // Reinicia el movimiento al cambiar de animal
+      tiempoMov = 0;
       
       setTimeout(() => {
         animal.setAttribute('gltf-model', ruta);
@@ -232,7 +231,6 @@
     document.addEventListener('touchstart', function(e) {
       if (e.touches.length === 1) {
         tocando = true;
-        movimientoActivo = false; // Pausa el movimiento automático al tocar
         ultimoX = e.touches[0].clientX;
         ultimoY = e.touches[0].clientY;
       }
@@ -256,25 +254,18 @@
     
     document.addEventListener('touchend', function() {
       tocando = false;
-      posY = -0.3;
-      movimientoActivo = true; // Vuelve a activar el movimiento automático al soltar
     });
     
-    // ✅ MOVIMIENTO AUTOMÁTICO DE IZQUIERDA A DERECHA
+    // ✅ MOVIMIENTO EN EL MISMO LUGAR — SALTA Y RESPIRA
     function animarMovimiento() {
-      if (movimientoActivo && !tocando) {
-        tiempoMov += 0.015;
-        const ejeX = Math.sin(tiempoMov) * 1.2;
-        const ejeY = -0.3 + Math.sin(tiempoMov * 0.5) * 0.05;
-        
-        posX = ejeX;
-        posY = ejeY;
-        animal.setAttribute('position', `${ejeX} ${ejeY} -1.5`);
-        
-        // Gira hacia donde va
-        const direccion = Math.cos(tiempoMov) >= 0 ? 0 : 180;
-        animal.setAttribute('rotation', `0 ${direccion} 0`);
+      tiempoMov += 0.03; // Más lento y suave
+      
+      if (!tocando) {
+        // ✅ Se mantiene en el mismo lugar, solo sube y baja suavemente (como saltando o respirando)
+        const salto = Math.abs(Math.sin(tiempoMov)) * 0.15 - 0.3;
+        animal.setAttribute('position', `${posX} ${salto} -1.5`);
       }
+      
       requestAnimationFrame(animarMovimiento);
     }
     
