@@ -182,8 +182,8 @@
     const minTamano = 0.15;
     const maxTamano = 0.8;
     
-    // ✅ VARIABLES PARA EL MOVIMIENTO EN EL LUGAR
     let tiempoMov = 0;
+    let baseY = -0.3;
     
     function achicar() {
       if (tamanoActual > minTamano) {
@@ -221,7 +221,6 @@
       }, 150);
     }
     
-    // ✅ MOVIMIENTO CON EL DEDO
     let tocando = false;
     let ultimoX = 0;
     let ultimoY = 0;
@@ -256,14 +255,14 @@
       tocando = false;
     });
     
-    // ✅ MOVIMIENTO EN EL MISMO LUGAR — SALTA Y RESPIRA
+    // ✅ CAMINATA EN EL LUGAR — sube y baja al ritmo de pasos
     function animarMovimiento() {
-      tiempoMov += 0.03; // Más lento y suave
+      tiempoMov += 0.12; // Más rápido para simular pasos
       
       if (!tocando) {
-        // ✅ Se mantiene en el mismo lugar, solo sube y baja suavemente (como saltando o respirando)
-        const salto = Math.abs(Math.sin(tiempoMov)) * 0.15 - 0.3;
-        animal.setAttribute('position', `${posX} ${salto} -1.5`);
+        // Sube y baja suavemente como si estuviera caminando
+        const caminar = Math.abs(Math.sin(tiempoMov)) * 0.08 + baseY;
+        animal.setAttribute('position', `${posX} ${caminar} -1.5`);
       }
       
       requestAnimationFrame(animarMovimiento);
