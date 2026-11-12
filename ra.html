@@ -132,11 +132,11 @@
     
     <a-entity camera></a-entity>
     
-    <!-- ✅ TAMAÑO MÁS PEQUEÑO: 0.35 -->
+    <!-- ✅ TAMAÑO IGUAL AL CONEJO: 0.3 0.3 0.3 -->
     <a-entity
       id="animal"
       gltf-model="ar/conejo.glb"
-      scale="0.35 0.35 0.35"
+      scale="0.3 0.3 0.3"
       position="0 -0.3 -1.5"
       visible="true"
       animation-mixer="clip: *; loop: repeat;">
@@ -177,11 +177,11 @@
     const animal = document.getElementById('animal');
     const listaAnimales = document.getElementById('listaAnimales');
     
-    // ✅ TAMAÑO MÁS PEQUEÑO PARA CELULAR
-    let tamanoActual = 0.35;
+    // ✅ TAMAÑO IGUAL AL CONEJO: 0.3
+    let tamanoActual = 0.3;
     const paso = 0.05;
     const minTamano = 0.15;
-    const maxTamano = 1.2;
+    const maxTamano = 0.8;
     
     function achicar() {
       if (tamanoActual > minTamano) {
@@ -209,12 +209,12 @@
     
     function cambiar(ruta) {
       animal.setAttribute('gltf-model', '');
-      // ✅ Siempre empieza del mismo tamaño pequeño
-      tamanoActual = 0.35;
+      // ✅ TODOS vuelven al tamaño del conejo
+      tamanoActual = 0.3;
       
       setTimeout(() => {
         animal.setAttribute('gltf-model', ruta);
-        animal.setAttribute('scale', '0.35 0.35 0.35');
+        animal.setAttribute('scale', '0.3 0.3 0.3');
         animal.setAttribute('position', '0 -0.3 -1.5');
       }, 150);
     }
