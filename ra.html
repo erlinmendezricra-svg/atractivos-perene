@@ -32,56 +32,80 @@
       transform: translateX(-50%);
       background: rgba(0, 102, 51, 0.9);
       color: white;
-      padding: 12px 20px;
+      padding: 10px 16px;
       border-radius: 8px;
       z-index: 100;
       text-align: center;
       font-size: 0.85rem;
-      max-width: 95%;
-    }
-    
-    .selector-modelo {
-      position: absolute;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(255,255,255,0.95);
-      padding: 15px 20px;
-      border-radius: 12px;
-      z-index: 100;
-      text-align: center;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-    }
-    
-    .selector-modelo h3 {
-      color: #006633;
-      margin-bottom: 10px;
-      font-size: 1rem;
-    }
-    
-    .selector-modelo button {
-      background: #006633;
-      color: white;
-      border: none;
-      padding: 10px 14px;
-      margin: 5px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 0.85rem;
-      font-weight: bold;
     }
     
     .estado {
       position: absolute;
-      top: 80px;
+      top: 75px;
       left: 50%;
       transform: translateX(-50%);
       background: rgba(0,0,0,0.7);
       color: white;
-      padding: 10px 20px;
+      padding: 8px 16px;
       border-radius: 20px;
       font-size: 0.85rem;
       z-index: 100;
+    }
+    
+    .menu-container {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+    }
+    
+    .boton-menu {
+      background: #006633;
+      color: white;
+      border: none;
+      padding: 14px 25px;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    }
+    
+    .lista-animales {
+      display: none;
+      position: absolute;
+      bottom: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: white;
+      border-radius: 10px;
+      padding: 10px;
+      box-shadow: 0 3px 15px rgba(0,0,0,0.15);
+      min-width: 200px;
+    }
+    
+    .lista-animales.mostrar {
+      display: block;
+    }
+    
+    .lista-animales button {
+      display: block;
+      width: 100%;
+      background: #f0f8f0;
+      color: #006633;
+      border: none;
+      padding: 10px 15px;
+      margin: 4px 0;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: bold;
+      text-align: left;
+    }
+    
+    .lista-animales button:hover {
+      background: #d8eed8;
     }
   </style>
 </head>
@@ -94,12 +118,12 @@
     
     <a-entity camera></a-entity>
     
-    <!-- ✅ TAMAÑO AJUSTADO: 0.5 0.5 0.5 → más pequeño y cómodo -->
+    <!-- ✅ TAMAÑO Y POSICIÓN AJUSTADOS -->
     <a-entity
       id="animal"
       gltf-model="ar/conejo.glb"
       scale="0.5 0.5 0.5"
-      position="0 0 -1.5"
+      position="0 -0.3 -1.5"
       visible="true"
       animation-mixer="clip: *; loop: repeat;">
     </a-entity>
@@ -111,24 +135,41 @@
   <a href="index.html" class="boton-volver">← Volver</a>
   
   <div class="instrucciones">
-    📱 Elige un animal → ¡se moverá por ti!
+    📱 Toca el botón y elige tu animal
   </div>
   
   <div class="estado" id="estado">✅ Cámara lista</div>
   
-  <div class="selector-modelo">
-    <h3>Elige un animal 🐾</h3>
-    <button onclick="cambiar('ar/leona.glb')">🦁 Leona</button>
-    <button onclick="cambiar('ar/cocodrilo.glb')">🐊 Cocodrilo</button>
-    <button onclick="cambiar('ar/lobo.glb')">🐺 Lobo</button>
-    <button onclick="cambiar('ar/saurio.glb')">🦕 Saurio</button>
-    <button onclick="cambiar('ar/conejo.glb')">🐰 Conejo</button>
-    <button onclick="cambiar('ar/guinea.glb')">🐹 Guinea</button>
+  <!-- 📦 MENÚ DESPLEGABLE -->
+  <div class="menu-container">
+    <button class="boton-menu" onclick="alternarMenu()">🐾 Elige un animal</button>
+    
+    <div class="lista-animales" id="listaAnimales">
+      <button onclick="cambiar('ar/leona.glb'); alternarMenu();">🦁 Leona</button>
+      <button onclick="cambiar('ar/cocodrilo.glb'); alternarMenu();">🐊 Cocodrilo</button>
+      <button onclick="cambiar('ar/lobo.glb'); alternarMenu();">🐺 Lobo</button>
+      <button onclick="cambiar('ar/saurio.glb'); alternarMenu();">🦕 Saurio</button>
+      <button onclick="cambiar('ar/conejo.glb'); alternarMenu();">🐰 Conejo</button>
+      <button onclick="cambiar('ar/guinea.glb'); alternarMenu();">🐹 Guinea</button>
+    </div>
   </div>
 
   <script>
     const animal = document.getElementById('animal');
     const estado = document.getElementById('estado');
+    const listaAnimales = document.getElementById('listaAnimales');
+    
+    // 🔄 Abrir/cerrar menú
+    function alternarMenu() {
+      listaAnimales.classList.toggle('mostrar');
+    }
+    
+    // 🔄 Cerrar menú si tocas fuera
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.menu-container')) {
+        listaAnimales.classList.remove('mostrar');
+      }
+    });
     
     animal.addEventListener('model-loaded', () => {
       estado.textContent = '✅ ¡Animal listo y animado!';
@@ -148,7 +189,8 @@
       
       setTimeout(() => {
         animal.setAttribute('gltf-model', ruta);
-        animal.setAttribute('scale', '0.5 0.5 0.5'); // ✅ Siempre tamaño 0.5
+        animal.setAttribute('scale', '0.5 0.5 0.5');
+        animal.setAttribute('position', '0 -0.3 -1.5');
       }, 150);
     }
   </script>
