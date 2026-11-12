@@ -76,7 +76,7 @@
       display: block;
     }
 
-    /* PASOS QR */
+    /* PASOS QR — SOLO TÍTULO Y SUBTÍTULO */
     .pasos {
       padding: 30px 15px;
       max-width: 1000px;
@@ -84,24 +84,7 @@
       text-align: center;
     }
     .pasos h2 { color: #0f4d2c; margin-bottom: 10px; font-size: 1.25rem; }
-    .pasos-subtitulo { color: #666; margin-bottom: 25px; font-size: 0.9rem; }
-    .pasos-contenedor {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
-    @media (min-width: 600px) {
-      .pasos-contenedor { grid-template-columns: repeat(3, 1fr); }
-    }
-    .paso {
-      background: white;
-      padding: 18px;
-      border-radius: 10px;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.08);
-    }
-    .paso h3 { color: #0f4d2c; font-size: 1.5rem; margin-bottom: 5px; }
-    .paso h4 { color: #0f4d2c; margin-bottom: 5px; font-size: 0.95rem; }
-    .paso p { color: #666; font-size: 0.85rem; line-height: 1.4; }
+    .pasos-subtitulo { color: #666; font-size: 0.9rem; }
 
     /* ATRACTIVOS */
     .atractivos {
@@ -192,27 +175,10 @@
     </video>
   </section>
 
-  <!-- PASOS QR -->
+  <!-- PASOS QR — SIN LOS 3 CUADROS BLANCOS -->
   <section class="pasos">
     <h2>Turismo mediante Códigos QR</h2>
     <p class="pasos-subtitulo">Escanea el código QR en cada atractivo y accede al instante a toda la información turística.</p>
-    <div class="pasos-contenedor">
-      <div class="paso">
-        <h3>01</h3>
-        <h4>Encuentra el código QR</h4>
-        <p>Ubica el código instalado en el atractivo turístico.</p>
-      </div>
-      <div class="paso">
-        <h3>02</h3>
-        <h4>Escanea con tu celular</h4>
-        <p>Utiliza la cámara de tu celular para escanear el código.</p>
-      </div>
-      <div class="paso">
-        <h3>03</h3>
-        <h4>Conoce y disfruta</h4>
-        <p>Accede a información, imágenes y datos del atractivo.</p>
-      </div>
-    </div>
   </section>
 
   <!-- ATRACTIVOS -->
@@ -224,7 +190,7 @@
   </section>
 
   <script>
-    // Cargar desde datos.json en lugar del servidor API
+    // Cargar desde datos.json
     fetch('datos.json')
       .then(res => {
         if (!res.ok) throw new Error("No se pudo cargar datos.json");
