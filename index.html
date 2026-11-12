@@ -43,11 +43,11 @@
       font-size: 0.8rem;
     }
 
-    /* PORTADA */
+    /* PORTADA — OSCURO SUAVE PARA LEER MEJOR */
     .portada {
       width: 100%;
-      min-height: 70vh;
-      background: linear-gradient(rgba(0,60,30,0.7), rgba(0,60,30,0.7)), url('img/PORTADA-PERENE.jpg');
+      height: 100vh;
+      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('img/PORTADA-PERENE.jpg');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -61,11 +61,95 @@
       color: white;
       font-size: 1.8rem;
       font-weight: bold;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
       line-height: 1.3;
     }
 
-    /* VIDEO */
+    /* SECCIÓN QR */
+    .pasos {
+      padding: 40px 15px;
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .pasos h2 { color: #0f4d2c; margin-bottom: 12px; font-size: 1.35rem; }
+    .pasos-subtitulo { color: #555; font-size: 0.95rem; line-height: 1.5; }
+
+    /* ATRACTIVOS */
+    .atractivos {
+      padding: 10px 15px 50px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .atractivos h2 {
+      text-align: center;
+      color: #0f4d2c;
+      font-size: 1.4rem;
+      margin-bottom: 30px;
+    }
+    #lista-lugares {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    @media (min-width: 600px) {
+      #lista-lugares { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 900px) {
+      #lista-lugares { grid-template-columns: repeat(3, 1fr); }
+    }
+    .tarjeta {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      transition: transform 0.3s ease;
+      width: 100%;
+    }
+    .tarjeta:hover {
+      transform: translateY(-5px);
+    }
+    .tarjeta img { 
+      width: 100%; 
+      height: 180px; 
+      object-fit: cover; 
+      display: block;
+    }
+    .tarjeta-contenido { padding: 18px; }
+    .tarjeta h3 { color: #0f4d2c; margin-bottom: 8px; font-size: 1.05rem; }
+    .tarjeta p { color: #666; font-size: 0.88rem; margin-bottom: 15px; line-height: 1.5; }
+    .botones { display: flex; gap: 10px; flex-wrap: wrap; }
+    .btn-ver {
+      flex: 1;
+      min-width: 100px;
+      padding: 10px;
+      background: #0f4d2c;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      text-align: center;
+      font-weight: bold;
+      font-size: 0.88rem;
+      transition: background 0.3s ease;
+    }
+    .btn-ver:hover {
+      background: #146639;
+    }
+    .btn-qr {
+      padding: 10px 15px;
+      background: #e6f5ed;
+      color: #0f4d2c;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.88rem;
+      transition: background 0.3s ease;
+    }
+    .btn-qr:hover {
+      background: #cceedc;
+    }
+
+    /* VIDEO AL FINAL */
     .video-fondo {
       width: 100%;
       overflow: hidden;
@@ -76,79 +160,8 @@
       display: block;
     }
 
-    /* PASOS QR — SOLO TÍTULO Y SUBTÍTULO */
-    .pasos {
-      padding: 30px 15px;
-      max-width: 1000px;
-      margin: 0 auto;
-      text-align: center;
-    }
-    .pasos h2 { color: #0f4d2c; margin-bottom: 10px; font-size: 1.25rem; }
-    .pasos-subtitulo { color: #666; font-size: 0.9rem; }
-
-    /* ATRACTIVOS */
-    .atractivos {
-      padding: 10px 15px 40px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .atractivos h2 {
-      text-align: center;
-      color: #0f4d2c;
-      font-size: 1.4rem;
-      margin-bottom: 25px;
-    }
-    #lista-lugares {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 15px;
-    }
-    @media (min-width: 600px) {
-      #lista-lugares { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (min-width: 900px) {
-      #lista-lugares { grid-template-columns: repeat(3, 1fr); }
-    }
-    .tarjeta {
-      background: white;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.08);
-      width: 100%;
-    }
-    .tarjeta img { 
-      width: 100%; 
-      height: 160px; 
-      object-fit: cover; 
-      display: block;
-    }
-    .tarjeta-contenido { padding: 15px; }
-    .tarjeta h3 { color: #0f4d2c; margin-bottom: 6px; font-size: 1rem; }
-    .tarjeta p { color: #666; font-size: 0.85rem; margin-bottom: 12px; line-height: 1.4; }
-    .botones { display: flex; gap: 8px; flex-wrap: wrap; }
-    .btn-ver {
-      flex: 1;
-      min-width: 100px;
-      padding: 9px;
-      background: #0f4d2c;
-      color: white;
-      border-radius: 6px;
-      text-decoration: none;
-      text-align: center;
-      font-weight: bold;
-      font-size: 0.85rem;
-    }
-    .btn-qr {
-      padding: 9px 12px;
-      background: #e6f5ed;
-      color: #0f4d2c;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 0.85rem;
-    }
-    .cargando { text-align: center; color: #666; padding: 30px; font-size: 0.95rem; }
-    .error { color: red; text-align: center; padding: 30px; }
+    .cargando { text-align: center; color: #888; padding: 40px; font-size: 0.95rem; }
+    .error { color: #d32f2f; text-align: center; padding: 40px; }
   </style>
 </head>
 <body>
@@ -162,31 +175,31 @@
     </div>
   </nav>
 
-  <!-- PORTADA -->
+  <!-- PORTADA — PANTALLA COMPLETA CON OSCURO SUAVE -->
   <header class="portada">
     <h1 class="portada-texto">Descubre la magia natural de Perené</h1>
   </header>
 
-  <!-- VIDEO -->
+  <!-- SECCIÓN QR -->
+  <section class="pasos">
+    <h2>Turismo mediante Códigos QR</h2>
+    <p class="pasos-subtitulo">Escanea el código QR en cada atractivo y accede al instante a toda la información turística de Perené.</p>
+  </section>
+
+  <!-- ATRACTIVOS -->
+  <section class="atractivos" id="atractivos">
+    <h2>Nuestros Atractivos</h2>
+    <div id="lista-lugares">
+      <p class="cargando">Cargando atractivos...</p>
+    </div>
+  </section>
+
+  <!-- VIDEO — AL FINAL DE LA PÁGINA -->
   <section class="video-fondo">
     <video autoplay muted loop playsinline>
       <source src="videos/cascada01.mp4" type="video/mp4">
       Tu navegador no soporta reproducción de video.
     </video>
-  </section>
-
-  <!-- PASOS QR — SIN LOS 3 CUADROS BLANCOS -->
-  <section class="pasos">
-    <h2>Turismo mediante Códigos QR</h2>
-    <p class="pasos-subtitulo">Escanea el código QR en cada atractivo y accede al instante a toda la información turística.</p>
-  </section>
-
-  <!-- ATRACTIVOS -->
-  <section class="atractivos" id="atractivos">
-    <h2>Atractivos de Perené</h2>
-    <div id="lista-lugares">
-      <p class="cargando">Cargando atractivos...</p>
-    </div>
   </section>
 
   <script>
