@@ -132,7 +132,6 @@
     
     <a-entity camera></a-entity>
     
-    <!-- ✅ TAMAÑO IGUAL AL CONEJO: 0.3 0.3 0.3 -->
     <a-entity
       id="animal"
       gltf-model="ar/conejo.glb"
@@ -178,11 +177,14 @@
     const animal = document.getElementById('animal');
     const listaAnimales = document.getElementById('listaAnimales');
     
-    // ✅ TAMAÑO IGUAL AL CONEJO: 0.3
     let tamanoActual = 0.3;
     const paso = 0.05;
     const minTamano = 0.15;
     const maxTamano = 0.8;
+    
+    // ✅ VARIABLES PARA EL MOVIMIENTO AUTOMÁTICO
+    let tiempoMov = 0;
+    let movimientoActivo = true;
     
     function achicar() {
       if (tamanoActual > minTamano) {
@@ -210,8 +212,8 @@
     
     function cambiar(ruta) {
       animal.setAttribute('gltf-model', '');
-      // ✅ TODOS vuelven al tamaño del conejo
       tamanoActual = 0.3;
+      tiempoMov = 0; // Reinicia el movimiento al cambiar de animal
       
       setTimeout(() => {
         animal.setAttribute('gltf-model', ruta);
@@ -220,6 +222,7 @@
       }, 150);
     }
     
+    // ✅ MOVIMIENTO CON EL DEDO
     let tocando = false;
     let ultimoX = 0;
     let ultimoY = 0;
@@ -229,6 +232,7 @@
     document.addEventListener('touchstart', function(e) {
       if (e.touches.length === 1) {
         tocando = true;
+        movimientoActivo = false; // Pausa el movimiento automático al tocar
         ultimoX = e.touches[0].clientX;
         ultimoY = e.touches[0].clientY;
       }
@@ -252,7 +256,29 @@
     
     document.addEventListener('touchend', function() {
       tocando = false;
+      posY = -0.3;
+      movimientoActivo = true; // Vuelve a activar el movimiento automático al soltar
     });
+    
+    // ✅ MOVIMIENTO AUTOMÁTICO DE IZQUIERDA A DERECHA
+    function animarMovimiento() {
+      if (movimientoActivo && !tocando) {
+        tiempoMov += 0.015;
+        const ejeX = Math.sin(tiempoMov) * 1.2;
+        const ejeY = -0.3 + Math.sin(tiempoMov * 0.5) * 0.05;
+        
+        posX = ejeX;
+        posY = ejeY;
+        animal.setAttribute('position', `${ejeX} ${ejeY} -1.5`);
+        
+        // Gira hacia donde va
+        const direccion = Math.cos(tiempoMov) >= 0 ? 0 : 180;
+        animal.setAttribute('rotation', `0 ${direccion} 0`);
+      }
+      requestAnimationFrame(animarMovimiento);
+    }
+    
+    animarMovimiento();
   </script>
 
 </body>
