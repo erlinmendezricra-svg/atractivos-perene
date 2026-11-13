@@ -1,1 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Realidad Aumentada - Perené</title>
+  
+  <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+  
+  <style>
+    body { margin: 0; overflow: hidden; }
+    .boton-salir {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      z-index: 100;
+      background: rgba(0,0,0,0.6);
+      color: white;
+      padding: 10px 15px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .menu-animales {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      display: flex;
+      gap: 10px;
+      background: rgba(255,255,255,0.9);
+      padding: 15px;
+      border-radius: 12px;
+    }
+    .menu-animales button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 8px;
+      background: #0f4d2c;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .menu-animales button:hover {
+      background: #14703f;
+    }
+  </style>
+</head>
+<body>
+
+  <a href="../index.html" class="boton-salir">← Volver</a>
+
+  <div class="menu-animales">
+    <button onclick="cambiarAnimal('#conejo')">🐰 Conejo</button>
+    <button onclick="cambiarAnimal('#guinea')">🐹 Guinea</button>
+    <button onclick="cambiarAnimal('#leona')">🦁 Leona</button>
+    <button onclick="cambiarAnimal('#lobo')">🐺 Lobo</button>
+    <button onclick="cambiarAnimal('#saurio')">🦕 Saurio</button>
+    <button onclick="cambiarAnimal('#tigre')">🐯 Tigre</button>
+  </div>
+
+  <a-scene 
+    arjs="sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3;"
+    vr-mode-ui="enabled: false">
+    
+    <a-assets>
+      <a-asset-item id="conejo" src="conejo.glb"></a-asset-item>
+      <a-asset-item id="guinea" src="guinea.glb"></a-asset-item>
+      <a-asset-item id="leona" src="leona.glb"></a-asset-item>
+      <a-asset-item id="lobo" src="lobo.glb"></a-asset-item>
+      <a-asset-item id="saurio" src="saurio.glb"></a-asset-item>
+      <a-asset-item id="tigre" src="tigre.glb"></a-asset-item>
+    </a-assets>
+
+    <a-marker preset="hiro">
+      <a-entity 
+        id="animal" 
+        gltf-model="#conejo" 
+        scale="0.8 0.8 0.8"
+        position="0 0 0">
+      </a-entity>
+    </a-marker>
+
+    <a-entity camera></a-entity>
+  </a-scene>
+
+  <script>
+    function cambiarAnimal(nombre) {
+      const animal = document.getElementById('animal');
+      animal.setAttribute('gltf-model', nombre);
+    }
+  </script>
+
+</body>
+</html>
 
