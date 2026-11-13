@@ -3,49 +3,81 @@
     {
       "id": 1,
       "nombre": "Boca Tigre",
-      "descripcion": "Hermoso atractivo natural de Perené.",
+      "descripcion": "Hermoso atractivo natural de Perené, rodeado de exuberante vegetación y aguas cristalinas. Un lugar perfecto para disfrutar con familia y amigos, conectar con la naturaleza y relajarse junto al río.",
+      "horario": "Todos los días de 6:00 a.m. a 6:00 p.m.",
+      "ubicacion": "Distrito de Perené, Selva Central - A 15 minutos de la ciudad",
+      "recomendaciones": "✅ Llevar ropa ligera y toalla. ✅ Usar protector solar y repelente. ✅ No arrojar basura. ✅ Cuidado con las corrientes de agua.",
+      "servicios": "🅿️ Estacionamiento | 🚻 Servicios higiénicos | 📸 Mirador fotográfico",
       "imagen": "img/boca_tigre.jpg"
     },
     {
       "id": 2,
       "nombre": "Catarata",
-      "descripcion": "Impresionante caída de agua rodeada de vegetación.",
+      "descripcion": "Impresionante caída de agua natural que desciende entre rocas y abundante vegetación. El sonido del agua y el paisaje crean un ambiente tranquilo y refrescante. Ideal para caminatas cortas y disfrutar de la naturaleza en su estado puro.",
+      "horario": "Todos los días de 6:00 a.m. a 5:30 p.m.",
+      "ubicacion": "Comunidad de Chamchamayo, Distrito de Perené, Selva Central",
+      "recomendaciones": "✅ Llevar calzado cómodo y antideslizante. ✅ Usar protector solar y repelente. ✅ No arrojar basura al río. ✅ Cuidado con las piedras resbaladizas.",
+      "servicios": "🚻 Servicios higiénicos | 🪑 Zonas de descanso | 📸 Mirador para fotos",
       "imagen": "img/catarata.jpg"
     },
     {
       "id": 3,
       "nombre": "Caverna La Olada",
-      "descripcion": "Exploración y naturaleza en entorno único.",
+      "descripcion": "Fascinante formación natural subterránea. Explora el interior de la tierra y descubre estalagmitas, estalactitas y un ecosistema único. Una experiencia de aventura y naturaleza inolvidable en Perené.",
+      "horario": "Sábados, domingos y feriados de 8:00 a.m. a 4:00 p.m.",
+      "ubicacion": "Zona rural de Perené, Selva Central",
+      "recomendaciones": "✅ Usar calzado cerrado y con buen agarre. ✅ Llevar una linterna. ✅ No tocar las formaciones rocosas. ✅ Entrar solo con guía autorizado.",
+      "servicios": "🧭 Guía turístico | 🚻 Servicios higiénicos | 👷 Equipo de seguridad",
       "imagen": "img/caverna_la_olada.jpg"
     },
     {
       "id": 6,
       "nombre": "Fundo San Isidro",
-      "descripcion": "Belleza natural y paisajes tranquilos.",
+      "descripcion": "Belleza natural y paisajes tranquilos. Un espacio donde se combinan áreas verdes, pequeños arroyos y la calma del campo. Ideal para caminar, descansar y disfrutar del aire puro de la Selva Central.",
+      "horario": "Todos los días de 7:00 a.m. a 5:00 p.m.",
+      "ubicacion": "Fundo San Isidro, Distrito de Perené",
+      "recomendaciones": "✅ Respetar los cultivos y animales del lugar. ✅ Mantener el área limpia. ✅ Seguir los senderos marcados.",
+      "servicios": "🌿 Paseos naturales | 📸 Áreas de descanso",
       "imagen": "img/fundo_san_isidro.jpg"
     },
     {
       "id": 7,
       "nombre": "Juan Santos Atahualpa",
-      "descripcion": "Historia y cultura en este lugar emblemático.",
+      "descripcion": "Lugar con historia y cultura en este lugar emblemático. Conoce más sobre la identidad y tradiciones del pueblo de Perené y la Selva Central. Un punto de encuentro entre el pasado y el presente de nuestra comunidad.",
+      "horario": "Lunes a viernes de 8:00 a.m. a 3:00 p.m.",
+      "ubicacion": "Centro del Distrito de Perené",
+      "recomendaciones": "✅ Visitar con respeto. ✅ Preguntar antes de tomar fotos a personas.",
+      "servicios": "ℹ️ Información turística | 📖 Paneles informativos",
       "imagen": "img/juan_santos_atahualpa.jpg"
     },
     {
       "id": 8,
       "nombre": "Mirador",
-      "descripcion": "Vistas panorámicas impresionantes de Perené.",
+      "descripcion": "Vistas panorámicas impresionantes de Perené. Desde aquí puedes contemplar el valle, los ríos y las montañas que rodean este hermoso distrito. El mejor atardecer de la Selva Central te espera aquí.",
+      "horario": "Todos los días de 6:00 a.m. a 6:00 p.m.",
+      "ubicacion": "Cerro Mirador, entrada principal a Perené",
+      "recomendaciones": "✅ Mejor hora: antes del atardecer. ✅ Cuidado con los bordes. ✅ Llevar cámara fotográfica.",
+      "servicios": "🪑 Bancas de descanso | 📸 Mejor punto fotográfico",
       "imagen": "img/mirador.jpg"
     },
     {
       "id": 9,
       "nombre": "Piscina Natural",
-      "descripcion": "Aguas cristalinas para disfrutar en familia.",
+      "descripcion": "Aguas cristalinas y frescas rodeadas de naturaleza. Un espacio seguro y ideal para que toda la familia disfrute, nade y se relaje. El agua viene directamente del río, limpia y fresca.",
+      "horario": "Todos los días de 7:00 a.m. a 5:00 p.m.",
+      "ubicacion": "Cerca de Chamchamayo, Distrito de Perené",
+      "recomendaciones": "✅ No nadar solo. ✅ Prohibido beber alcohol. ✅ Llevar traje de baño y toalla. ✅ No arrojar basura al agua.",
+      "servicios": "🚻 Vestuarios | 🚿 Duchas | 🅿️ Estacionamiento",
       "imagen": "img/piscina.jpg"
     },
     {
       "id": 10,
       "nombre": "Velo de la Novia",
-      "descripcion": "Una de las cataratas más hermosas de la región.",
+      "descripcion": "Una de las cataratas más hermosas de la región. Su forma elegante y delicada asemeja un velo blanco cayendo entre la vegetación. Un paisaje espectacular que no puedes dejar de visitar y fotografiar.",
+      "horario": "Todos los días de 6:00 a.m. a 5:30 p.m.",
+      "ubicacion": "Comunidad de Chamchamayo, Distrito de Perené",
+      "recomendaciones": "✅ Caminar con cuidado por los senderos. ✅ No acercarse demasiado al borde. ✅ Llevar cámara, es el lugar perfecto para fotos.",
+      "servicios": "🪑 Mirador de observación | 🚻 Servicios higiénicos",
       "imagen": "img/velo_de_la_novia.jpg"
     }
   ]
