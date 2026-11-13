@@ -3,209 +3,225 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Detalle - Perené</title>
+  <title>Detalle - Turismo Perené</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
-    body { background-color: #f8fef9; color: #333; }
-
-    .navegacion {
-      background-color: #006633;
-      padding: 15px 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .navegacion .titulo {
-      color: white;
-      font-size: 1.1rem;
-      font-weight: bold;
-      text-transform: uppercase;
-    }
-    .navegacion a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .contenedor {
+    body {
+      background-color: #f8fef9;
+      color: #333;
+      line-height: 1.6;
+      padding: 20px;
       max-width: 900px;
-      margin: 40px auto;
-      padding: 0 20px;
+      margin: 0 auto;
     }
+
     .volver {
       display: inline-block;
-      margin-bottom: 25px;
       color: #0f4d2c;
       text-decoration: none;
       font-weight: bold;
+      margin-bottom: 25px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      transition: background 0.3s ease;
     }
-    .volver:hover { text-decoration: underline; }
+    .volver:hover {
+      background-color: #e6f5ed;
+    }
 
-    .foto-principal {
+    .imagen-principal {
       width: 100%;
-      height: 400px;
-      object-fit: cover;
-      border-radius: 12px;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
       margin-bottom: 30px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .imagen-principal img {
+      width: 100%;
+      height: auto;
+      display: block;
     }
 
     h1 {
-      color: #0f4d2c;
       font-size: 2rem;
-      margin-bottom: 15px;
+      color: #0f4d2c;
+      margin-bottom: 10px;
     }
-    .etiqueta {
+
+    .etiqueta-lugar {
       display: inline-block;
-      background: #e6f5ed;
+      background-color: #d4edda;
       color: #0f4d2c;
       padding: 6px 14px;
       border-radius: 20px;
+      font-size: 0.95rem;
       font-weight: bold;
       margin-bottom: 25px;
     }
+
     .descripcion {
-      font-size: 1.1rem;
-      line-height: 1.8;
-      margin-bottom: 30px;
+      font-size: 1.05rem;
       color: #444;
+      margin-bottom: 35px;
+      line-height: 1.8;
     }
-    .info-adicional {
+
+    .info-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 20px;
-      margin-bottom: 40px;
+      margin-bottom: 35px;
     }
-    .info-bloque h3 {
+
+    @media (max-width: 600px) {
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .info-tarjeta {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .info-titulo {
+      font-weight: bold;
       color: #0f4d2c;
       margin-bottom: 8px;
-      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
-    .info-bloque p { color: #555; }
 
-    .ra-seccion {
-      background: #fff8e6;
+    .seccion-ra {
+      background: linear-gradient(135deg, #fff9e6, #fff6d6);
       padding: 25px;
       border-radius: 12px;
       border-left: 4px solid #f5a623;
+      margin-bottom: 30px;
     }
-    .ra-seccion h3 { color: #b37400; margin-bottom: 10px; }
-    .ra-seccion p { color: #666; margin-bottom: 15px; }
+
     .btn-ra {
       display: inline-block;
-      background: #f5a623;
+      background-color: #f5a623;
       color: white;
       padding: 12px 25px;
       border-radius: 8px;
       text-decoration: none;
       font-weight: bold;
+      margin-top: 15px;
+      transition: background 0.3s ease;
     }
-    .btn-ra:hover { background: #e69500; }
+    .btn-ra:hover {
+      background-color: #e69500;
+    }
 
-    .cargando, .error { text-align: center; padding: 60px; font-size: 1.2rem; }
-    .error { color: red; }
+    .seccion-extra {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      margin-bottom: 20px;
+    }
+
+    .seccion-extra h3 {
+      color: #0f4d2c;
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+    }
+
+    .seccion-extra ul {
+      list-style: none;
+    }
+
+    .seccion-extra li {
+      padding: 6px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .seccion-extra li:last-child {
+      border-bottom: none;
+    }
   </style>
 </head>
 <body>
 
-  <nav class="navegacion">
-    <div class="titulo">MUNICIPALIDAD DISTRITAL DE PERENÉ</div>
-    <a href="index.html">← Volver al Inicio</a>
-  </nav>
+  <a href="index.html" class="volver"> ← Volver a Inicio</a>
 
-  <main class="contenedor" id="contenido">
-    <p class="cargando">Cargando información...</p>
-  </main>
+  <div class="imagen-principal">
+    <img id="img-atractivo" src="" alt="">
+  </div>
+
+  <h1 id="nombre">Boca Tigre</h1>
+  <p class="etiqueta-lugar">📍 Perené</p>
+
+  <p class="descripcion" id="descripcion">
+    Hermoso atractivo natural de Perené, rodeado de exuberante vegetación y aguas cristalinas. Un lugar perfecto para disfrutar con familia y amigos, conectar con la naturaleza y relajarse.
+  </p>
+
+  <div class="info-grid">
+    <div class="info-tarjeta">
+      <div class="info-titulo">🕐 Horario</div>
+      <p id="horario">Todo el día</p>
+    </div>
+
+    <div class="info-tarjeta">
+      <div class="info-titulo">📍 Ubicación</div>
+      <p id="ubicacion">Distrito de Perené, Selva Central</p>
+    </div>
+  </div>
+
+  <div class="seccion-extra" id="bloque-recomendaciones" style="display: none;">
+    <h3>💡 Recomendaciones</h3>
+    <p id="recomendaciones"></p>
+  </div>
+
+  <div class="seccion-extra" id="bloque-servicios" style="display: none;">
+    <h3>🏡 Servicios</h3>
+    <p id="servicios"></p>
+  </div>
+
+  <div class="seccion-ra">
+    <h3>📱 Realidad Aumentada</h3>
+    <p>Apunta con tu cámara al código QR o a la imagen del atractivo para verlo en Realidad Aumentada con tus animales favoritos.</p>
+    <a href="ar.html" class="btn-ra">🔍 Activar Realidad Aumentada</a>
+  </div>
 
   <script>
-    // TUS DATOS DIRECTAMENTE AQUÍ — ¡no depende de archivos externos!
-    const atractivos = [
-      {
-        "id": 1,
-        "nombre": "Boca Tigre",
-        "descripcion": "Hermoso atractivo natural de Perené.",
-        "imagen": "img/boca_tigre.jpg"
-      },
-      {
-        "id": 2,
-        "nombre": "Catarata",
-        "descripcion": "Impresionante caída de agua rodeada de vegetación.",
-        "imagen": "img/catarata.jpg"
-      },
-      {
-        "id": 3,
-        "nombre": "Caverna La Olada",
-        "descripcion": "Exploración y naturaleza en entorno único.",
-        "imagen": "img/caverna_la_olada.jpg"
-      },
-      {
-        "id": 6,
-        "nombre": "Fundo San Isidro",
-        "descripcion": "Belleza natural y paisajes tranquilos.",
-        "imagen": "img/fundo_san_isidro.jpg"
-      },
-      {
-        "id": 7,
-        "nombre": "Juan Santos Atahualpa",
-        "descripcion": "Historia y cultura en este lugar emblemático.",
-        "imagen": "img/juan_santos_atahualpa.jpg"
-      },
-      {
-        "id": 8,
-        "nombre": "Mirador",
-        "descripcion": "Vistas panorámicas impresionantes de Perené.",
-        "imagen": "img/mirador.jpg"
-      },
-      {
-        "id": 9,
-        "nombre": "Piscina Natural",
-        "descripcion": "Aguas cristalinas para disfrutar en familia.",
-        "imagen": "img/piscina.jpg"
-      },
-      {
-        "id": 10,
-        "nombre": "Velo de la Novia",
-        "descripcion": "Una de las cataratas más hermosas de la región.",
-        "imagen": "img/velo_de_la_novia.jpg"
-      }
-    ];
-
-    // Obtener el ID de la URL
+    // Leer el ID de la URL
     const params = new URLSearchParams(window.location.search);
-    const idBuscado = parseInt(params.get('id')) || 1;
+    const id = parseInt(params.get('id')) || 1;
 
-    // Buscar el lugar
-    const lugar = atractivos.find(l => l.id === idBuscado);
-    const contenedor = document.getElementById('contenido');
-
-    if (!lugar) {
-      contenedor.innerHTML = `<p class="error">Lugar no encontrado</p>`;
-    } else {
-      contenedor.innerHTML = `
-        <a href="index.html" class="volver">← Volver a Inicio</a>
-        <img src="${lugar.imagen}" alt="${lugar.nombre}" class="foto-principal">
-        <h1>${lugar.nombre}</h1>
-        <span class="etiqueta">📍 Perené</span>
-        <p class="descripcion">${lugar.descripcion}</p>
-        
-        <div class="info-adicional">
-          <div class="info-bloque">
-            <h3>🕐 Horario</h3>
-            <p>Todo el día</p>
-          </div>
-          <div class="info-bloque">
-            <h3>📍 Ubicación</h3>
-            <p>Distrito de Perené, Selva Central</p>
-          </div>
-        </div>
-
-        <div class="ra-seccion">
-          <h3>📱 Realidad Aumentada</h3>
-          <p>Apunta con tu cámara al código QR o a la imagen del atractivo para ver en Realidad Aumentada.</p>
-          <a href="ra.html" class="btn-ra">🔬 Activar Realidad Aumentada</a>
-        </div>
-      `;
-    }
+    // Cargar los datos
+    fetch('datos.json')
+      .then(res => res.json())
+      .then(data => {
+        const atractivo = data.atractivos.find(a => a.id === id);
+        if (atractivo) {
+          document.getElementById('nombre').textContent = atractivo.nombre;
+          document.getElementById('img-atractivo').src = atractivo.imagen;
+          document.getElementById('img-atractivo').alt = atractivo.nombre;
+          document.getElementById('descripcion').textContent = atractivo.descripcion;
+          document.getElementById('horario').textContent = atractivo.horario;
+          document.getElementById('ubicacion').textContent = atractivo.ubicacion;
+          
+          // Mostrar recomendaciones si existen
+          if (atractivo.recomendaciones) {
+            document.getElementById('recomendaciones').textContent = atractivo.recomendaciones;
+            document.getElementById('bloque-recomendaciones').style.display = 'block';
+          }
+          
+          // Mostrar servicios si existen
+          if (atractivo.servicios) {
+            document.getElementById('servicios').textContent = atractivo.servicios;
+            document.getElementById('bloque-servicios').style.display = 'block';
+          }
+          
+          document.title = atractivo.nombre + ' - Turismo Perené';
+        }
+      });
   </script>
 
 </body>
