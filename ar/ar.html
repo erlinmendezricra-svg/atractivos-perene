@@ -6,22 +6,22 @@
   <title>Realidad Aumentada - Perené</title>
   
   <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
   
   <style>
-    body { margin: 0; overflow: hidden; background: #e0f2e0; }
+    body { margin: 0; overflow: hidden; }
     
     .boton-volver {
       position: absolute;
       top: 15px;
       left: 15px;
       z-index: 100;
-      background: white;
-      color: #006633;
+      background: rgba(0,0,0,0.6);
+      color: white;
       padding: 10px 15px;
       border-radius: 8px;
       text-decoration: none;
       font-weight: bold;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
     }
     
     .menu-animales {
@@ -65,8 +65,11 @@
     <button onclick="cambiar('tigre')">🐯 Tigre</button>
   </div>
 
-  <!-- ✅ SIN MARCADOR — El animal aparece directo en el centro -->
-  <a-scene background="color: #e0f2e0;">
+  <!-- ✅ CÁMARA SIEMPRE VISIBLE -->
+  <a-scene 
+    arjs="sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3;"
+    vr-mode-ui="enabled: false">
+    
     <a-assets>
       <a-asset-item id="conejo" src="conejo.glb"></a-asset-item>
       <a-asset-item id="guinea" src="guinea.glb"></a-asset-item>
@@ -76,19 +79,16 @@
       <a-asset-item id="tigre" src="tigre.glb"></a-asset-item>
     </a-assets>
 
-    <!-- El animal siempre en el centro, caminando en su lugar -->
+    <!-- El animal fijo en el centro, con cámara de fondo -->
     <a-entity 
-      id="animal" 
-      gltf-model="#conejo" 
+      position="0 0 -2"
       scale="0.8 0.8 0.8"
-      position="0 -0.5 -3"
-      animation-mixer="clip: *; loop: repeat;">
+      gltf-model="#conejo"
+      id="animal">
     </a-entity>
 
-    <a-entity camera position="0 0 0"></a-entity>
-    
+    <a-entity camera></a-entity>
     <a-light type="ambient" intensity="1.5"></a-light>
-    <a-light type="directional" position="5 8 5" intensity="1.2"></a-light>
   </a-scene>
 
   <script>
@@ -99,14 +99,13 @@
       document.querySelectorAll('.menu-animales button').forEach(btn => btn.classList.remove('activo'));
       event.target.classList.add('activo');
       animal.setAttribute('gltf-model', '#' + nombre);
-      animal.setAttribute('scale', '0.8 0.8 0.8');
     }
     
-    // Movimiento de caminata en el mismo lugar
+    // Movimiento de caminata
     function animar() {
       tiempo += 0.1;
-      const altura = Math.abs(Math.sin(tiempo)) * 0.06 - 0.5;
-      animal.setAttribute('position', `0 ${altura} -3`);
+      const altura = Math.abs(Math.sin(tiempo)) * 0.06;
+      animal.setAttribute('position', `0 ${altura} -2`);
       requestAnimationFrame(animar);
     }
     
