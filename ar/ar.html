@@ -50,11 +50,30 @@
     .menu-animales button.activo {
       background: #f5a623;
     }
+    
+    .cargando {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0,0,0,0.7);
+      color: white;
+      padding: 20px;
+      border-radius: 8px;
+      z-index: 200;
+      display: none;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
 
-  <a href="index.html" class="boton-volver">← Volver</a>
+  <a href="../index.html" class="boton-volver">← Volver</a>
+
+  <div class="cargando" id="cargando">
+    Cargando animal...<br>
+    <small>Espera unos segundos</small>
+  </div>
 
   <div class="menu-animales">
     <button class="activo" onclick="cambiar('conejo')">🐰 Conejo</button>
@@ -65,9 +84,9 @@
     <button onclick="cambiar('tigre')">🐯 Tigre</button>
   </div>
 
-  <!-- ✅ CÁMARA SIEMPRE VISIBLE -->
+  <!-- CÁMARA ACTIVA -->
   <a-scene 
-    arjs="sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3;"
+    arjs="sourceType: webcam;"
     vr-mode-ui="enabled: false">
     
     <a-assets>
@@ -79,29 +98,38 @@
       <a-asset-item id="tigre" src="tigre.glb"></a-asset-item>
     </a-assets>
 
-    <!-- El animal fijo en el centro, con cámara de fondo -->
+    <!-- ANIMAL EN EL CENTRO DE LA PANTALLA -->
     <a-entity 
+      id="animal"
       position="0 0 -2"
       scale="0.8 0.8 0.8"
       gltf-model="#conejo"
-      id="animal">
+      animation-mixer="clip: *; loop: repeat;">
     </a-entity>
 
     <a-entity camera></a-entity>
-    <a-light type="ambient" intensity="1.5"></a-light>
+    <a-light type="ambient" intensity="2.0"></a-light>
+    <a-light type="directional" position="3 5 3" intensity="1.5"></a-light>
   </a-scene>
 
   <script>
     const animal = document.getElementById('animal');
+    const cargando = document.getElementById('cargando');
     let tiempo = 0;
     
     function cambiar(nombre) {
       document.querySelectorAll('.menu-animales button').forEach(btn => btn.classList.remove('activo'));
       event.target.classList.add('activo');
+      
+      cargando.style.display = 'block';
       animal.setAttribute('gltf-model', '#' + nombre);
+      
+      setTimeout(() => {
+        cargando.style.display = 'none';
+      }, 2000);
     }
     
-    // Movimiento de caminata
+    // Movimiento suave en el lugar
     function animar() {
       tiempo += 0.1;
       const altura = Math.abs(Math.sin(tiempo)) * 0.06;
