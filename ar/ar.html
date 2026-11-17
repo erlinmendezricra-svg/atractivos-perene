@@ -6,65 +6,67 @@
   <title>Realidad Aumentada - Perené</title>
   
   <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
-  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
   
   <style>
-    body { margin: 0; overflow: hidden; }
-    .boton-salir {
+    body { margin: 0; overflow: hidden; background: #e0f2e0; }
+    
+    .boton-volver {
       position: absolute;
       top: 15px;
       left: 15px;
       z-index: 100;
-      background: rgba(0,0,0,0.6);
-      color: white;
+      background: white;
+      color: #006633;
       padding: 10px 15px;
       border-radius: 8px;
       text-decoration: none;
       font-weight: bold;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
     }
+    
     .menu-animales {
       position: absolute;
-      bottom: 20px;
+      bottom: 30px;
       left: 50%;
       transform: translateX(-50%);
       z-index: 100;
-      display: flex;
-      gap: 10px;
-      background: rgba(255,255,255,0.9);
-      padding: 15px;
+      background: white;
+      padding: 12px 20px;
       border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
     }
+    
     .menu-animales button {
-      padding: 10px 15px;
-      border: none;
-      border-radius: 8px;
-      background: #0f4d2c;
+      margin: 5px;
+      padding: 10px 16px;
+      background: #006633;
       color: white;
-      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
       cursor: pointer;
     }
-    .menu-animales button:hover {
-      background: #14703f;
+    
+    .menu-animales button.activo {
+      background: #f5a623;
     }
   </style>
 </head>
 <body>
 
-  <a href="../index.html" class="boton-salir">← Volver</a>
+  <a href="index.html" class="boton-volver">← Volver</a>
 
   <div class="menu-animales">
-    <button onclick="cambiarAnimal('#conejo')">🐰 Conejo</button>
-    <button onclick="cambiarAnimal('#guinea')">🐹 Guinea</button>
-    <button onclick="cambiarAnimal('#leona')">🦁 Leona</button>
-    <button onclick="cambiarAnimal('#lobo')">🐺 Lobo</button>
-    <button onclick="cambiarAnimal('#saurio')">🦕 Saurio</button>
-    <button onclick="cambiarAnimal('#tigre')">🐯 Tigre</button>
+    <button class="activo" onclick="cambiar('conejo')">🐰 Conejo</button>
+    <button onclick="cambiar('guinea')">🐹 Guinea</button>
+    <button onclick="cambiar('leona')">🦁 Leona</button>
+    <button onclick="cambiar('lobo')">🐺 Lobo</button>
+    <button onclick="cambiar('saurio')">🦕 Saurio</button>
+    <button onclick="cambiar('tigre')">🐯 Tigre</button>
   </div>
 
-  <a-scene 
-    arjs="sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3;"
-    vr-mode-ui="enabled: false">
-    
+  <!-- ✅ SIN MARCADOR — El animal aparece directo en el centro -->
+  <a-scene background="color: #e0f2e0;">
     <a-assets>
       <a-asset-item id="conejo" src="conejo.glb"></a-asset-item>
       <a-asset-item id="guinea" src="guinea.glb"></a-asset-item>
@@ -74,25 +76,42 @@
       <a-asset-item id="tigre" src="tigre.glb"></a-asset-item>
     </a-assets>
 
-    <a-marker preset="hiro">
-      <a-entity 
-        id="animal" 
-        gltf-model="#conejo" 
-        scale="0.8 0.8 0.8"
-        position="0 0 0">
-      </a-entity>
-    </a-marker>
+    <!-- El animal siempre en el centro, caminando en su lugar -->
+    <a-entity 
+      id="animal" 
+      gltf-model="#conejo" 
+      scale="0.8 0.8 0.8"
+      position="0 -0.5 -3"
+      animation-mixer="clip: *; loop: repeat;">
+    </a-entity>
 
-    <a-entity camera></a-entity>
+    <a-entity camera position="0 0 0"></a-entity>
+    
+    <a-light type="ambient" intensity="1.5"></a-light>
+    <a-light type="directional" position="5 8 5" intensity="1.2"></a-light>
   </a-scene>
 
   <script>
-    function cambiarAnimal(nombre) {
-      const animal = document.getElementById('animal');
-      animal.setAttribute('gltf-model', nombre);
+    const animal = document.getElementById('animal');
+    let tiempo = 0;
+    
+    function cambiar(nombre) {
+      document.querySelectorAll('.menu-animales button').forEach(btn => btn.classList.remove('activo'));
+      event.target.classList.add('activo');
+      animal.setAttribute('gltf-model', '#' + nombre);
+      animal.setAttribute('scale', '0.8 0.8 0.8');
     }
+    
+    // Movimiento de caminata en el mismo lugar
+    function animar() {
+      tiempo += 0.1;
+      const altura = Math.abs(Math.sin(tiempo)) * 0.06 - 0.5;
+      animal.setAttribute('position', `0 ${altura} -3`);
+      requestAnimationFrame(animar);
+    }
+    
+    animar();
   </script>
 
 </body>
 </html>
-
